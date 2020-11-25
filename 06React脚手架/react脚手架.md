@@ -84,6 +84,61 @@ PWA解决了哪些问题呢？
 ### 如何配置webpack
 在上面的目录结构中，并没有看到有关webpack相关的内容的原因是因为React的脚手架将webpack相关的配置隐藏起来了。
 ***如何看到webpack的配置信息呢？***
-- 在package.json文件中配置`"eject": "react-scripts eject"`
+- 因为在package.json文件中有这样的配置`"eject": "react-scripts eject"`
 - 这个操作是不可逆的，因此在执行过程中会显示相关提示
 - 执行语句`yarn eject`
+这个时候可能git会报错：
+```
+This git repository has untracked files or uncommitted change:
+"文件名"
+Remove untracked files, stash or commit any chages, add try again
+```
+
+## 从零编写项目
+
+### 文件的删减
+首先将不需要的文件统统删除
+- 1.将src文件夹下的所有文件都删除
+- 2.将public文件下除了favicon.icon和index.html之外的文件都删除
+- 3.修改index.html文件内容
+```
+删除：
+引用的图片资源
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+引入的mainfest文件
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+```
+### 开始编写代码
+在src目录下，创建一个index.js文件，这是webpack打包的入口
+在index.js中编写代码
+```
+import React from 'react';
+impoty ReactDOM from 'react-dom';
+
+ReactDOM.render(<h2>Hello React</h2>, document.getElementById('root'));
+```
+
+### 组件的抽取
+如果我们不希望直接在ReactDOM.render中编写过多的代码，就可以单独抽取一个组件app.js:
+
+App.js
+```
+import React, {component} from 'react';
+
+export default class App extends component {
+  render() {
+    return (
+      <h2>Hello World</h2>
+    )
+  }
+}
+```
+
+index.js
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './App';
+ReactDOM.render(<App/>, document.getElementById('root'));
+```
