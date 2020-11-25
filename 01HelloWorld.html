@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+
+  <!-- 1、添加React代码的三个依赖包 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    // 2、通过ReactDOM对象来渲染内容
+    // 2.1 提前定义一个id为app的div
+    // 2.2 传入一个h2元素
+    // ReactDOM.render()有两个参数
+    // - 参数一：传递要渲染的内容，可以是html元素，也可以是React组件
+    // - 参数二：内容挂载到的目标HTML元素上
+    
+    // ReactDOM.render(<h2>hello world</h2>,document.getElementById("app"));
+
+
+    // 3、如何将要渲染的内容抽取到一个变量中呢？
+    // 可以通过{}语法，引入外部的变量或者表达式
+    let message = 'Hello World';
+    ReactDOM.render(<h2>{message}</h2>, document.getElementById('app'));
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <!-- ES6的class -->
+  <!-- 案例一：列表展示 -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          movies: ["星际穿越", "大话西游", "盗梦空间", "少年派"]
+        };
+      }
+      render() {
+        return (
+          <div>
+            <ul>
+              {
+                this.state.movies.map((item,index) => {
+                  return (<li key={index}>{item}</li>)
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!-- 案例二：计数器 -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          count: 0
+        }
+      }
+      render() {
+        return (
+          <div>
+            <h2>当前计数：{this.state.count}</h2>
+            <br />
+            <button onClick={this.inc.bind(this)}> +1 </button>
+            <button onClick={this.dec.bind(this)}> -1 </button>
+          </div>
+        )
+      }
+      inc() {
+        this.setState({
+          count: this.state.count+1,
+        })
+      }
+      dec() {
+        this.setState({
+          count: this.state.count-1,
+        })
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!-- JSX语法解析 -->
+  <!-- 
+    JSX的书写规范：
+
+    - JSX的顶层只能有一个根元素，所以我们很多时候会在外层包裹一个div原生（或者使用后面我们学习的Fragment）;
+    - 为了方便阅读，我们通常在jsx的外层包裹一个小括号()，这样可以方便阅读，并且jsx可以进行换行书写；
+    - JSX中的标签可以是单标签，也可以是双标签；
+      + 注意：如果是单标签，必须以/>结尾；
+   -->
+  <!-- 
+    JSX嵌入表达式
+    1. jsx中的内容是动态的,我们可以通过表达式来获取
+    - 书写规则: {表达式}
+    - 大括号内可以是变量/字符串/数组/函数等任意js表达式
+
+    2. jsx中的注释
+    jsx是嵌入到Javascript中的一个语句,所以在编写注释时,需要通过JSX的语法来编写
+    {/* 我是一段注释 */}
+
+    3.jsx嵌入变量
+    - 情况一: 当变量类型时Number\Array\String时,可以直接显示
+    - 情况二: 当对象时null\undefined\Boolean类型时,内容为空;
+      + 如果希望可以显示null\undefined\Boolean,那么需要转换成字符串
+      + 转换的方式有很多,比如toString方法\和空字符串拼接\String(变量)等方式
+    - 情况三: 对象类型不能作为子元素
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          name: 'coder',
+          age: 18,
+          hobbies: ["唱", '跳', 'rap', '篮球'],
+          
+          test1: null,
+          test2: undefined,
+          test3: true,
+
+          friend: {
+            name: 'kobe',
+            age: 40
+          }
+        }
+      }
+
+      render() {
+        return (
+          <div>
+            <div>
+              {/* 我是一段注释 */}
+              <h2>hello world</h2>
+            </div>
+
+            <div>
+              {/* 可以直接显示 */}
+              name: {this.state.name}
+              <br />
+              age: {this.state.age}
+              <br />
+              hobbies: {this.state.hobbies}
+              <br />
+
+              {/* 不显示 */}
+              <br />
+              test1: {this.state.test1}
+              <br />
+              test1: {this.state.test1 + ''}
+              <br />
+              test2: {this.state.test2}
+              <br />
+              test2: {this.state.test2 + ''}
+              <br />
+              test3: {this.state.test3}
+              <br />
+              test3: {this.state.test3 + ''}
+              <br />
+
+              {/* 不显示 */}
+              {/*<h2>{this.state.friend}</h2>*/}
+            </div>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!--  
+    为什么null\undefined\Boolean在jsx语法中显示为空呢?
+    可以用来作为动态展示
+    - 当判断结果为 false 时,不显示内容
+    - 当判断结果为 true 时,显示内容
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          flag: false
+        }
+      }
+      render() {
+        return (
+          <div>
+            {!this.state.flag ? <h2>我是标题1</h2> : ''}
+            {this.state.flag && <h2>我是标题2</h2>}
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!--  
+    4.jsx绑定属性
+    很多时候,描述HTML原生会有一些属性,而我们希望这些属性也是动态的
+    - 比如元素都会有的title属性
+    - 比如img标签中的src属性
+    - 比如a标签的href属性
+    - 比如元素可能需要绑定class属性
+      + 注意: 绑定class比较特殊,因为class在js中是一个关键字,所以jsx不允许直接写class
+      + 写法: 使用className替代
+    - 比如元素使用的内联样式style
+      + style后面跟的是一个对象类型,对象中是样式的属性名和属性值
+      + 注意: 这里会将属性名转成驼峰标识,而不是短横线连接符
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          title: '您好',
+          imgUrl: 'https://coderwuyf.github.io/images/avatar.jpg',
+          link: 'https://www.baidu.com',
+          active: true
+        }
+      }
+
+      render() {
+        return (
+          <div>
+            <h2 title={this.state.title}>Hello World</h2>
+            <br />
+            <img src={this.state.imgUrl} alt="img" />
+            <br />
+            <a href={this.state.link}>百度</a>
+            <br />
+            <div className={"message" + (this.state.active ? "active" : "")}>你好啊</div>
+            <br />
+            <div className={["message" + (this.state.active ? "active" : "")].join(" ")}>你好啊</div>
+            <br />
+            <div style={{color: 'red', fontSize: '20px'}}>我是文本</div>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!--
+    5. jsx事件监听
+    如果原生DOM原生有一个监听事件,我们可以如何操作呢?
+    - 方式一: 获取DOM元素, 添加监听事件;
+    - 方式二: 在HTML元素中,直接绑定onclick(全是小写);
+
+    React中的事件监听与上面方法二的区别:
+    - React事件命名采用小驼峰式onClick,而不是纯小写
+    - 我们需要通过{}传入一个事件处理函数,这个函数会在事件发生时被执行;
+  -->
+  <!-- <script
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {}
+      }
+
+      render() {
+        return (
+          <div>
+            <button onClick={this.btnClick}>点我</button>
+          </div>
+        )
+      }
+
+      btnClick() {
+        alert("按钮被点击了");
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));    
+  </script> -->
+
+  <!--
+    6. jsx的this绑定问题
+    在事件被执行的时候,可能会用到当前类的对象中的相关属性
+    - 比如说在上面的例子中,首先在state中声明一个message变量,点击按钮之后,打印一下this.state.message
+      + 此时就会报错,Cannot read property 'state' of undefined
+      + 原因在于this在这里式undefined
+    
+    this为undefined的原因:
+    - 原因是btnClick函数并非是我们主动调用的,而是React内部调用了btnClick函数
+    - 而React内部调用时,并不知道如何正确的绑定this;
+
+    如何解决this问题呢?
+
+    方法一: 使用bind给btnClick主动绑定this
+    而这个方法也有两种实现方式:
+      1. 在button元素上
+      <button onClick={this.btnClick.bind(this)}>
+      2. 在constructor中,直接给this.btnClick绑定this
+      constructor(props) {
+        super(props);
+        this.state = {...};
+
+        ///
+        this.btnClick.bind(this);
+      }
+    
+    方法二: 使用ES6 class fields 语法
+    此时btnClick的变成了一种赋值语句
+    - 这是ES6中给类定义属性的方法，称之为class fields语法
+
+    class App extends React.Component {
+      constructor(props) {...};
+      render(return(...));
+      
+      ///
+      btnClick = () => {
+        console.log(this);
+        console.log(this.state.message);
+      }
+    }
+
+    方法三: 事件监听时传入箭头函数（推荐）
+    因为onClick中，要求我们传入一个函数，那么我们可以直接定义一个箭头函数传入；
+    - 传入箭头函数的函数体是我们需要执行的代码，我们直接执行this.btnClick();
+    - this.btnClick()中通过this来指定会进行隐式绑定，最终this也是正确的
+    代码如下：
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component{
+      constructor (props) {
+        super(props);
+
+        this.state = {
+          message: '我是state中的message'
+        }
+      };
+
+      render() {
+        return (
+          <div>
+            <button onClick={() => {this.btnClick()}}>按钮</button>
+          </div>
+        )
+      };
+
+      btnClick() {
+        console.dir(this);
+        alert(this.state.message);
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!--
+    7. 事件参数传递
+    在执行事件函数时，有可能我们需要获取一些参数信息：比如event对象、其他参数
+  -->
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor (props) {
+        super(props);
+
+        this.state = {
+          name: ['衣服', '鞋子', '帽子']
+        }
+      }
+      render() {
+        return (
+          <div>
+            {/* 7.1情况一：不需要使用this，仅仅获取event对象，来做一些事情（如阻止默认行为） */}
+            <button onClick={this.btnClick1}>按钮</button>
+
+
+            {/* 7.2情况二：获取除event之外更多的参数 */}
+            {/* 最好的方式就是传入一个箭头函数，主动执行的事件函数，并且传入相关的其他参数 */}
+
+            <div>
+              <a href="https://www.baidu.com" onClick={this.aClick}>百度链接</a>
+
+              <ul>
+                {
+                  this.state.name.map((item,index) => {
+                    return (
+                      <li key={index}>
+                        <a href="#" onClick={(e) => this.aClick(e, item, index)}>{item}</a>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+          </div>
+        )
+      };
+      aClick(e, item, index) {
+        e.preventDefault();
+        console.log(e);
+        console.log(this);
+        console.log(item, index);
+      }
+
+      btnClick1 (e) {
+        e.preventDefault();
+        console.log(e);
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script>
+</body>
+</html>

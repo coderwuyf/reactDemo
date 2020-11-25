@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <!--
+    一、条件渲染
+    某些情况下，界面的内容会根据不同的情况，来判断是否进行渲染
+    - vue中通过v-if、v-show来控制
+    - React中，所有的条件判断和js代码一致
+    常见的条件渲染方式如下：
+  -->
+  <!--
+    1.1 条件判断语句
+  -->
+  <!-- 一种方式是当逻辑较多时，通过条件判断： -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          isLogin: false
+        }
+      }
+      render() {
+        let titleJsx = null;
+        if (this.state.isLogin) {
+          titleJsx = <h2>欢迎回来</h2>
+        } else {
+          titleJsx = <h2>请先登录</h2>
+        }
+        return (
+          <div>
+            {titleJsx}
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+  <!-- 一种是封装到独立得函数 -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          isLogin: false
+        }
+      }
+
+      render() {
+        return (
+          <div>
+            {this.getTitleJsx()}
+          </div>
+        )
+      }
+
+      getTitleJsx() {
+        let titleJsx = null;
+        if (this.state.isLogin) {
+          titleJsx = <h2>欢迎回来</h2>
+        } else {
+          titleJsx = <h2>请先登录</h2>
+        }
+        return titleJsx;
+      }
+    }
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+  <!--
+    1.2 三元运算符:适合根据不同得条件直接返回不同得结果
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          isLogin: false,
+        }
+      }
+      render() {
+        return (
+          <div>
+            {this.state.isLogin ? <h2>欢迎回来</h2> : <h2>请先登录</h2>}
+            <button onClick={() => this.btnClick()}>{this.state.isLogin ? '登出' : '登录'}</button>
+          </div>
+        )
+      }
+      btnClick() {
+        console.log(this);
+        this.setState({
+          isLogin: !this.state.isLogin
+        })
+      }
+    }
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+  <!--
+    1.3 与运算符: 适合条件成立时,渲染一个组件,而不成立时什么也不渲染的情况
+  -->
+  <!--
+    1.4 实现v-show的效果
+    适合渲染和不渲染变换频繁的场景
+    通过style中的display的属性来控制它的显示和隐藏
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          username: 'coder',
+          isLogin: false
+        }
+      }
+
+      render() {
+        const {isLogin, username} = this.state;
+        let nameDisplay = isLogin ? 'block' : 'none';
+
+        return (
+          <div>
+            <div style={{width: '100px', height: '100px', border: '1px solid black'}}>
+              <h2 style={{display: nameDisplay}}>{username}</h2>
+            </div>
+            <button onClick={() => this.btnClick()}>{!isLogin ? '显示' : "隐藏"}</button>
+          </div>
+        )
+      }
+
+      btnClick() {
+        this.setState({
+          isLogin: !this.state.isLogin
+        })
+      }
+    }
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!--
+    二、jsx列表渲染
+  -->
+  <!--
+    2.1 列表渲染
+    真实开发过程中我们会从服务器请求到大量的数据，数据以列表的形式展示
+    在vue中可以通过v-for指令来实现效果，但是在react中，我们只能通过JavaScript代码的方式组织数据，转化成南横JSX
+
+    在React中，列表展示最多的方式就是使用数组的map函数
+  -->
+  <!-- <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          movies: ["盗梦空间", "大话西游", "流浪地球", "少年派", "食神", "美人鱼", "海王"]
+        }
+      }
+
+      render() {
+        return (
+          <div>
+            <h2>电影列表：</h2>
+            <ul>
+              {
+                this.state.movies.map((item,index) => {
+                  return <li key={index}>{item}</li>
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script> -->
+
+  <!--
+    2.2 数组处理
+    很多时候我们在展示一个数组中的数据之前，需要对它进行一些处理：
+    - 比如过滤掉一些内容： filter函数
+    - 比如截取数组中的一部分内容： slice函数
+
+    需求：从数组[10, 30, 120, 453, 55, 78, 111, 222]中找到大于50的数组，并展示前三个元素
+  -->
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          arr: [10, 30, 120, 453, 55, 78, 111, 222],
+        }
+      }
+
+      render() {
+        return (
+          <div>
+            <ul>
+              {
+                this.state.arr.filter((item) => item >= 50).slice(0,3).map((item,index) => {
+                  return <li key={item}>{item}</li>
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script>
+</body>
+</html>

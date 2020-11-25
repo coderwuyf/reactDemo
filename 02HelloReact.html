@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 目标：通过点击按钮，将文本内容进行修改 -->
+  <div id="app"></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- 方法一： -->
+  <!-- 1、先声明变量，然后使用ReactDOM来渲染文本和按钮 -->
+  <!-- 2、按钮上绑定一个函数，函数的功能就是先改变变量，然后又重新渲染文本和按钮 -->
+  <!-- <script type="text/babel">
+    // 将数据定义到变量中
+    let message = 'hello world';
+
+    // 通过ReactDOM对象来渲染内容
+    render();
+
+    // 定义一个执行函数
+    function btnClick() {
+      message = 'hello React'
+      render();
+    }
+    
+    function render() {
+      ReactDOM.render((
+        <div>
+          <h2>{message}</h2>
+          <button onClick={btnClick}>改变文本</button>
+        </div>
+        ),document.getElementById('app')
+      );
+    }
+  </script> -->
+
+  <!-- 方法二：组件的方式 -->
+  <!-- 这里暂时使用类的方式封装组件 -->
+  <script type="text/babel">
+    /*
+      一、文本内容的渲染过程
+
+      这个类继承自React.Component{}
+      render方法中返回的jsx内容，就是之后React会帮我们渲染的内容
+      1、定义一个类，继承自React.Component
+      2、实现当前组件的render函数
+    */
+    /*
+      二、如何定义变量和函数
+
+      1、数据在哪里定义？
+        - 
+    */
+    class App extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          message: 'hello world'
+        };
+      }
+      render() {
+        return (
+          <div>
+            <h2>{this.state.message}</h2>
+            <button onClick={this.changeText.bind(this)}>改变文本</button>
+          </div>
+        );
+      }
+      changeText() {
+        this.setState({
+          message: "hello React"
+        })
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'));
+  </script>
+</body>
+
+</html>
