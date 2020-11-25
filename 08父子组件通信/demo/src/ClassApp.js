@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import PropTypes from 'prop-types';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -25,4 +25,10 @@ export default class App extends Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number,
+  height: PropTypes.number,
 }
