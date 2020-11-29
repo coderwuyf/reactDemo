@@ -15,6 +15,65 @@
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
   <script type="text/babel">
+    function loginAuth(Page) {
+      return props => {
+        if (props.isLogin) {
+          return <Page/>
+        } else {
+          return <LoginPage {...props}/>
+        }
+      }
+    }
+
+    function Card() {
+      return (
+        <h2>main content</h2>
+      )
+    }
+
+    function LoginPage(props) {
+
+      function handleClick() {
+        props.ChangeState(true);
+        console.log(props);
+      }
+
+      return (
+        <div>
+          <h2>请登录</h2>
+          <button onClick={() => handleClick()}>点击登录</button>
+        </div>
+      )
+    }
+
+    const AuthCard = loginAuth(Card);
+
+    class App extends React.PureComponent {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          isLogin: false
+        }
+      };
+
+      render() {
+        return (
+          <div>
+            <AuthCard isLogin={this.state.isLogin} ChangeState={(val) => this.handleChange(val)} />
+          </div>
+        )
+      }
+
+      handleChange(value) {
+        alert('登录成功！');
+        this.setState({
+          isLogin: value
+        });
+      }
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('root'));
   </script>
 </body>
 

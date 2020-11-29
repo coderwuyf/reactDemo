@@ -23,6 +23,7 @@ export default class App extends Component {
   }
 
   itemClick(index) {
+    console.log(this);
     this.setState({
       currentTitle: this.titles[index]
     })

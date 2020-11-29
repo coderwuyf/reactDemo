@@ -29,6 +29,7 @@ export default class TabControl extends Component {
   }
 
   handleClick(index) {
+    console.log(this);
     this.setState({
       currentIndex: index
     });

@@ -31,12 +31,12 @@
 
         return (
           <div>
-            <p>{this.state.username}</p>
+            <p>{username}</p>
             用户名:
             <input
               name="username"
               type="text"
-              value={this.state.username}
+              value={username}
               onChange={e => this.handleChange(e)}
             />
             {/* 使用ref */}
@@ -50,12 +50,12 @@
               onChange={e => this.handleRefChange(e)}
             />
             <br />
-            <p>{this.state.pwd}</p>
+            <p>{pwd}</p>
             密码:
             <input
               type="text"
               name="pwd"
-              value={this.state.pwd}
+              value={pwd}
               onChange={e => this.handleChange(e)}
             />
           </div>
